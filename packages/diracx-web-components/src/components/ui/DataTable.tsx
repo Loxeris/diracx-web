@@ -62,10 +62,10 @@ type Order = "asc" | "desc";
  */
 function getComparator<Key extends keyof any>(
   order: Order,
-  orderBy: Key
+  orderBy: Key,
 ): (
   a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string }
+  b: { [key in Key]: number | string },
 ) => number {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -81,7 +81,7 @@ function getComparator<Key extends keyof any>(
  */
 function stableSort<T>(
   array: readonly T[],
-  comparator: (a: T, b: T) => number
+  comparator: (a: T, b: T) => number,
 ) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
@@ -115,11 +115,11 @@ interface DataTableHeadProps {
   numSelected: number;
   onRequestSort: (
     event: React.MouseEvent<unknown>,
-    property: string | number
+    property: string | number,
   ) => void;
   onSelectAllClick: (
     event: React.ChangeEvent<HTMLInputElement>,
-    checked: boolean
+    checked: boolean,
   ) => void;
   order: Order;
   orderBy: string;
@@ -213,7 +213,7 @@ function DataTableToolbar(props: DataTableToolbarProps) {
       },
       (err) => {
         console.error("Could not copy text: ", err);
-      }
+      },
     );
   };
 
@@ -356,11 +356,11 @@ export function DataTable(props: DataTableProps) {
         "filter",
         newFilters.map(
           (filter) =>
-            `${filter.id}_${filter.column}_${filter.operator}_${filter.value}`
-        )
+            `${filter.id}_${filter.column}_${filter.operator}_${filter.value}`,
+        ),
       );
     },
-    [setParam]
+    [setParam],
   );
 
   const [sections, setSections] = React.useContext(ApplicationsContext);
@@ -369,7 +369,7 @@ export function DataTable(props: DataTableProps) {
       const appId = getParam("appId");
 
       const section = sections.find((section) =>
-        section.items.some((item) => item.id === appId)
+        section.items.some((item) => item.id === appId),
       );
       if (section) {
         const newSection = {
@@ -382,11 +382,11 @@ export function DataTable(props: DataTableProps) {
           }),
         };
         setSections((sections) =>
-          sections.map((s) => (s.title === section.title ? newSection : s))
+          sections.map((s) => (s.title === section.title ? newSection : s)),
         );
       }
     },
-    [getParam, sections, setSections]
+    [getParam, sections, setSections],
   );
 
   // Handle the application of filters
@@ -443,7 +443,7 @@ export function DataTable(props: DataTableProps) {
           parameter: filter.column,
           operator: filter.operator,
           value: filter.value,
-        })
+        }),
       );
       setSearchBody({ search: jsonFilters });
     } else {
@@ -455,7 +455,7 @@ export function DataTable(props: DataTableProps) {
   // Manage sorting
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: string | number
+    property: string | number,
   ) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -485,7 +485,7 @@ export function DataTable(props: DataTableProps) {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
+        selected.slice(selectedIndex + 1),
       );
     }
 
@@ -498,7 +498,7 @@ export function DataTable(props: DataTableProps) {
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -622,7 +622,7 @@ export function DataTable(props: DataTableProps) {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(
-                    row[rowIdentifier] as number
+                    row[rowIdentifier] as number,
                   );
                   const labelId = `enhanced-table-checkbox-${index}`;
 

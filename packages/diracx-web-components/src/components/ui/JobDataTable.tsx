@@ -129,7 +129,7 @@ export function JobDataTable() {
   const urlGetJobs = `/api/jobs/search?page=0&per_page=100`;
   const { data, error } = useSWR(
     [urlGetJobs, accessToken, "POST", searchBody],
-    fetcher
+    fetcher,
   );
 
   const columns = isMobile ? mobileHeadCells : headCells;

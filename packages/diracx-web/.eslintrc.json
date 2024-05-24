@@ -12,6 +12,7 @@
   "rules": {
     "import/order": ["error"],
     "import/no-unused-modules": ["error"],
-    "import/no-useless-path-segments": ["error"]
+    "import/no-useless-path-segments": ["error"],
+    "import/no-unresolved": "off"
   }
 }

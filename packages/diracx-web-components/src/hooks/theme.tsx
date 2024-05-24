@@ -1,8 +1,29 @@
 import { PaletteMode } from "@mui/material";
 import { deepOrange, grey, lightGreen } from "@mui/material/colors";
-import { createTheme, darken, lighten } from "@mui/material/styles";
+import {
+  createTheme,
+  darken,
+  lighten,
+  getContrastRatio,
+} from "@mui/material/styles";
 import { useContext } from "react";
 import { ThemeContext } from "@/contexts/ThemeProvider";
+
+declare module "@mui/material/styles" {
+  interface Palette {
+    chipGreen: Palette["primary"];
+  }
+
+  interface PaletteOptions {
+    chipGreen?: PaletteOptions["primary"];
+  }
+}
+
+declare module "@mui/material/Chip" {
+  interface ChipPropsColorOverrides {
+    chipGreen: true;
+  }
+}
 
 /**
  * Custom hook to access the theme context
@@ -26,12 +47,20 @@ export const useTheme = () => {
 export const useMUITheme = () => {
   const { theme } = useTheme();
 
+  const chipGreen =
+    theme === "light" ? lightGreen[200] : darken(lightGreen[700], 0.5);
+
   // Create a Material-UI theme based on the current mode
   const muiTheme = createTheme({
     palette: {
       mode: theme as PaletteMode,
       primary: {
         main: "#ffffff",
+      },
+      chipGreen: {
+        main: chipGreen,
+        contrastText:
+          getContrastRatio(chipGreen, "#fff") > 4.5 ? "#fff" : "#111",
       },
     },
   });
@@ -95,13 +124,6 @@ export const useMUITheme = () => {
             //underline in deep orange
             textDecoration: "underline",
           },
-        },
-      },
-    },
-    MuiChip: {
-      styleOverrides: {
-        root: {
-          backgroundColor: lightGreen[100],
         },
       },
     },

@@ -290,6 +290,8 @@ export function DataTable(props: DataTableProps) {
   const { getAllParam, getParam, setParam } = useSearchParamsUtils();
   const appId = getParam("appId");
 
+  const [appliedFilters, setAppliedFilters] = React.useState<Filter[]>(filters);
+
   const updateFiltersAndUrl = React.useCallback(
     (newFilters: Filter[]) => {
       // Update the filters in the URL using the setParam function
@@ -340,6 +342,7 @@ export function DataTable(props: DataTableProps) {
     }));
     setSearchBody({ search: jsonFilters });
     setPage(0);
+    setAppliedFilters(filters);
 
     // Update the filters in the URL
     updateFiltersAndUrl(filters);
@@ -474,6 +477,7 @@ export function DataTable(props: DataTableProps) {
           columns={columns}
           filters={filters}
           setFilters={setFilters}
+          appliedFilters={appliedFilters}
           handleApplyFilters={handleApplyFilters}
         />
         <Box sx={{ width: "100%", p: 1 }} data-testid="skeleton">
@@ -496,6 +500,7 @@ export function DataTable(props: DataTableProps) {
           columns={columns}
           filters={filters}
           setFilters={setFilters}
+          appliedFilters={appliedFilters}
           handleApplyFilters={handleApplyFilters}
         />
         <Box sx={{ width: "100%", marginTop: 2 }}>
@@ -515,6 +520,7 @@ export function DataTable(props: DataTableProps) {
           columns={columns}
           filters={filters}
           setFilters={setFilters}
+          appliedFilters={appliedFilters}
           handleApplyFilters={handleApplyFilters}
         />
         <Box sx={{ width: "100%", marginTop: 2 }}>
@@ -532,6 +538,7 @@ export function DataTable(props: DataTableProps) {
         columns={columns}
         filters={filters}
         setFilters={setFilters}
+        appliedFilters={appliedFilters}
         handleApplyFilters={handleApplyFilters}
       />
 

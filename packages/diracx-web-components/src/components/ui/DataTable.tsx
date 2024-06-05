@@ -26,7 +26,6 @@ import {
   Stack,
 } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
-import { useSearchParams } from "next/navigation";
 import { FilterToolbar } from "./FilterToolbar";
 import { Filter } from "@/types/Filter";
 import { Column } from "@/types/Column";
@@ -344,9 +343,7 @@ export function DataTable(props: DataTableProps) {
     mouseY: number | null;
     id: number | null;
   }>({ mouseX: null, mouseY: null, id: null });
-  // NextJS router and params
-  const searchParams = useSearchParams();
-  const { getParam, setParam } = useSearchParamsUtils();
+  const { getAllParam, getParam, setParam } = useSearchParamsUtils();
   const appId = getParam("appId");
 
   const updateFiltersAndUrl = React.useCallback(
@@ -408,7 +405,7 @@ export function DataTable(props: DataTableProps) {
   React.useEffect(() => {
     // Function to parse the filters from the URL search params
     const parseFiltersFromUrl = () => {
-      const filterStrings = searchParams.getAll("filter");
+      const filterStrings = getAllParam("filter");
       return filterStrings.map((filterString: string) => {
         const [id, column, operator, value] = filterString.split("_");
         return { id: Number(id), column, operator, value };
@@ -419,7 +416,7 @@ export function DataTable(props: DataTableProps) {
       .find((section) => section.items.some((item) => item.id === appId))
       ?.items.find((item) => item.id === appId);
 
-    if (searchParams.has("filter")) {
+    if (getParam("filter")) {
       // Parse the filters when the component mounts or when the searchParams change
       const initialFilters = parseFiltersFromUrl();
       // Set the filters (they will be displayed in the UI)
@@ -450,7 +447,7 @@ export function DataTable(props: DataTableProps) {
       setFilters([]);
       setSearchBody({ search: [] });
     }
-  }, [appId, searchParams, sections, setFilters, setSearchBody]);
+  }, [appId, getAllParam, getParam, sections, setFilters, setSearchBody]);
 
   // Manage sorting
   const handleRequestSort = (

@@ -23,7 +23,6 @@ import React, {
 } from "react";
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { extractClosestEdge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
-import Image from "next/image";
 import DrawerItemGroup from "./DrawerItemGroup";
 import AppDialog from "./ApplicationDialog";
 import { ApplicationsContext } from "@/contexts/ApplicationsProvider";
@@ -372,7 +371,7 @@ export default function DashboardDrawer(props: DashboardDrawerProps) {
               backgroundColor: theme.palette.background.default,
             }}
           >
-            <Image src={logoURL} alt="DIRAC logo" width={150} height={45} />
+            <img src={logoURL} alt="DIRAC logo" width={150} height={45} />
           </Toolbar>
           {/* Map over user sections and render them as list items in the drawer. */}
           <List>

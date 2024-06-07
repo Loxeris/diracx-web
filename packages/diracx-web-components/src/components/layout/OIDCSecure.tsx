@@ -24,7 +24,9 @@ export function OIDCSecure({ children }: OIDCProps) {
       setPath(
         "/auth?" +
           // URLSearchParams to ensure that auth redirects users to the URL they came from
-          new URLSearchParams({ redirect: window.location.href }).toString(),
+          new URLSearchParams({
+            redirect: window.location.pathname + window.location.search,
+          }).toString(),
       );
     }
   }, [isAuthenticated, setPath]);

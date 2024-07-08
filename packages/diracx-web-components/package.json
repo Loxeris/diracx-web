@@ -1,6 +1,6 @@
 {
   "name": "@loxeris/diracx-web-components",
-  "version": "0.1.0-a1",
+  "version": "0.1.0-a2",
   "repository": "https://github.com/loxeris/diracx-web",
   "description": "Useful components for diracx-web",
   "scripts": {

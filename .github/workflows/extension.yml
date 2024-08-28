@@ -13,7 +13,6 @@ jobs:
   run-lint:
     runs-on: ubuntu-latest
     # Run the tests only if It's a PR or if the repo is DIRACGrid/diracx-web
-    if: github.event_name != 'push' || github.repository == 'DIRACGrid/diracx-web'
     steps:
       # Checkout the new source code
       - uses: actions/checkout@v4
@@ -34,7 +33,6 @@ jobs:
   run-demo:
     runs-on: ubuntu-latest
     # Run the tests only if It's a PR or if the repo is DIRACGrid/diracx-web
-    if: github.event_name != 'push' || github.repository == 'DIRACGrid/diracx-web'
     steps:
     # Checkout the new source code
     - uses: actions/checkout@v4 

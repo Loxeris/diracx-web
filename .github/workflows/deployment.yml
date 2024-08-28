@@ -146,7 +146,6 @@ jobs:
 
   build-deploy-dev-gubbins-image:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.repository == 'DIRACGrid/diracx-web' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -165,7 +164,7 @@ jobs:
       - name: Build Docker image (extension example)
         uses: docker/build-push-action@v6
         with:
-          context: ./packages/extensions
+          file: ./packages/extensions/Dockerfile
           push: ${{ github.event_name == 'push' && github.repository == 'DIRACGrid/diracx-web' && github.ref_name == 'main' }}
           tags: ghcr.io/diracgrid/diracx-web/extension-example:dev
           platforms: linux/amd64,linux/arm64
